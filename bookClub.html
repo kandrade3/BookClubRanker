@@ -1,0 +1,80 @@
+<!-- PASTE THIS INTO CODEPEN'S HTML PANEL -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<div class="app">
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="screen active">
+    <div class="login-card">
+      <div class="login-icon"><i class="ti ti-books"></i></div>
+      <h1>Book Club Ranker</h1>
+      <p class="sub">Enter your name to rank the books and see everyone's lists</p>
+      <div class="name-input-wrap">
+        <input type="text" id="nameInput" placeholder="Your name..." maxlength="30" />
+        <button onclick="login()">Join ↗</button>
+      </div>
+      <p id="loginError" class="error-msg">Please enter your name.</p>
+    </div>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div id="mainScreen" class="screen">
+    <header>
+      <div>
+        <h1>Book Club Ranker</h1>
+        <p class="sub">Drag to rank. Hover a book and click ✕ to mark it as unread.</p>
+      </div>
+      <div class="user-chip" id="userChip"></div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('my')">
+        <i class="ti ti-list-numbers"></i> My Ranking
+      </button>
+      <button class="tab" onclick="switchTab('all')">
+        <i class="ti ti-users"></i> Everyone's Rankings
+      </button>
+    </div>
+
+    <!-- MY RANKING TAB -->
+    <div id="myTab" class="tab-panel">
+      <ul class="book-list" id="activeList"></ul>
+
+      <div id="removedSection" class="removed-section" style="display:none;">
+        <p class="removed-label">
+          <i class="ti ti-eye-off"></i> Not read yet — click <i class="ti ti-rotate"></i> to restore
+        </p>
+        <ul class="book-list" id="removedList"></ul>
+      </div>
+
+      <div class="footer">
+        <button class="save-btn" onclick="saveRanking()">
+          <i class="ti ti-device-floppy"></i> Save my ranking
+        </button>
+        <span class="saved-msg" id="savedMsg">
+          <i class="ti ti-circle-check"></i> Ranking saved!
+        </span>
+      </div>
+    </div>
+
+    <!-- ALL RANKINGS TAB -->
+    <div id="allTab" class="tab-panel" style="display:none;">
+      <div class="refresh-bar">
+        <span class="live-dot"></span>
+        <span class="live-label">Live updates</span>
+        <button class="refresh-btn" onclick="loadAllRankings()">
+          <i class="ti ti-refresh"></i> Refresh
+        </button>
+      </div>
+      <div id="allRankings"></div>
+    </div>
+  </div>
+
+</div>
